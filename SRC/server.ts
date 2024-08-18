@@ -38,6 +38,26 @@ class MenuCli {
         )
     };
 
+    static adddepartment() {
+        inquirer 
+        .prompt ([{
+            type: 'input',
+            name: 'addDepartment',
+            message: 'What is the name of the department?'
+        }])
+        .then((answers) => {
+        const deptName = answers.addDepartment;
+    
+        pool.query(`INSERT INTO department (name) VALUES ($1)`, [deptName],
+        (err,res)=> { 
+            if (err) {throw err;}
+        console.log(res.rows);
+         });
+        });
+    }   
+
+    static
+
     static startCli(): void {
         inquirer
         .prompt ([
@@ -56,8 +76,8 @@ class MenuCli {
                 this.viewroles();
             } else if (answers.ViewAddUpdate === 'view all employees') {
                 this.viewemployees();
-            // } else if (answers.ViewAddUpdate === 'add a department') {
-            //     this.adddepartment();
+            } else if (answers.ViewAddUpdate === 'add a department') {
+                this.adddepartment();
             // } else if (answers.ViewAddUpdate === 'add a role') {
             //     this.addrole();
             // }else if (answers.ViewAddUpdate === 'add an employee') {
