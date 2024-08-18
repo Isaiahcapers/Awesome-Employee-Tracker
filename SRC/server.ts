@@ -27,6 +27,17 @@ class MenuCli {
          );
     };
 
+    static viewemployees() {
+        pool.query(
+            `SELECT employee.id as employee_id, employee.first_name, employee.last_name, role.title, role.salary, department.name as department_name, manager.first_name as manager_first_name
+            FROM employee
+            LEFT JOIN role ON employee.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+            LEFT JOIN employee as manager ON employee.manager_id = manager.id;`,
+            (err,res)=> { if (err) throw err; console.log(res.rows);}
+        )
+    };
+
     static startCli(): void {
         inquirer
         .prompt ([
@@ -43,8 +54,8 @@ class MenuCli {
                 this.viewdepartments();
             } else if (answers.ViewAddUpdate === 'view all roles') {
                 this.viewroles();
-            // } else if (answers.ViewAddUpdate === 'view all employees') {
-            //     this.viewemployees();
+            } else if (answers.ViewAddUpdate === 'view all employees') {
+                this.viewemployees();
             // } else if (answers.ViewAddUpdate === 'add a department') {
             //     this.adddepartment();
             // } else if (answers.ViewAddUpdate === 'add a role') {
