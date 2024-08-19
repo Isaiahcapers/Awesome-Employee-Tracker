@@ -13,18 +13,28 @@ app.use(express.json());
 
 class MenuCli {
 
-    static viewdepartments() {
-        pool.query(
-           `SELECT id, name FROM department;`,
-           (err,res)=> { if (err) throw err; console.log(res.rows);} 
-        );
-    };       
+    static async viewDepartments() {
+        try {  
+            const res = await pool.query(`SELECT id, name FROM department;`);
+            console.log(res.rows);
+            MenuCli.startCli();
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }  
+    };      
 
-    static viewroles(){
-        pool.query(
-            `SELECT title,id as role_id,salary,department_id FROM role;`,
-            (err,res)=> { if (err) throw err; console.log(res.rows);} 
-         );
+    static async viewroles(){
+        try {
+         const res = await pool.query(
+            `SELECT title,id as role_id,salary,department_id FROM role;`,);   
+            console.log(res.rows);
+            MenuCli.startCli();
+            return res.rows;          
+        } catch (err) {
+            throw err;
+        }
+        
     };
 
     static viewemployees() {
@@ -56,7 +66,14 @@ class MenuCli {
         });
     }   
 
-    static
+    static addrole() {
+        inquirer.prompt([{
+            type: 'input',
+            name:'AddRoleName',
+            message:'What is the title of the role?'
+        }])
+        .then 
+    }
 
     static startCli(): void {
         inquirer
@@ -71,19 +88,19 @@ class MenuCli {
         ])
         .then ((answers) => {
             if (answers.ViewAddUpdate === 'view all departments') {
-                this.viewdepartments();
+                MenuCli.viewDepartments();
             } else if (answers.ViewAddUpdate === 'view all roles') {
-                this.viewroles();
+                MenuCli.viewroles();
             } else if (answers.ViewAddUpdate === 'view all employees') {
-                this.viewemployees();
+                MenuCli.viewemployees();
             } else if (answers.ViewAddUpdate === 'add a department') {
-                this.adddepartment();
-            // } else if (answers.ViewAddUpdate === 'add a role') {
-            //     this.addrole();
-            // }else if (answers.ViewAddUpdate === 'add an employee') {
-            //     this.addemployee();
+                MenuCli.adddepartment();
+            } else if (answers.ViewAddUpdate === 'add a role') {
+                MenuCli.addrole();
+            }else if (answers.ViewAddUpdate === 'add an employee') {
+            //     MenuCli.addemployee();
             // } else if (answers.ViewAddUpdate === 'update an employee role') {
-            //     this.updateemployee();
+            //     MenuCli.updateemployee();
              }
         });
     }
