@@ -148,9 +148,6 @@ class MenuCli {
             const roleSalary = answers.AddSalary;
             const departmentTitle = answers.AddDepartment;
             const department = await MenuCli.getDepartmentIdByTitle(departmentTitle);
-            if (!department) {
-                throw new Error(`Department with title "${departmentTitle}" not found.`);
-            }
             const departmentId = department.id;
             const res = await pool.query(`INSERT INTO role (title,salary,department_id) VALUES ($1, $2, $3)`,[roleName, roleSalary, departmentId]);
             console.log('Role added Successfully!');

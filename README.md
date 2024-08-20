@@ -13,10 +13,8 @@ Employee Tracker is a command-line application built with Node.js, Inquirer, and
 Follow the on-screen prompts to view and manage employee data, including adding new employees, updating employee information, and deleting employees.
 
 ## Demo
-Watch a demo of the application [here](insert link to demo video).
+Watch a demo of the application [here](https://bootcampspot.instructuremedia.com/embed/95704640-f373-46a1-acbd-71c4141b60c6).
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-For the license, you can include the following text in a file named LICENSE in your project directory:
-
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.txt) file for details.
 MIT License
